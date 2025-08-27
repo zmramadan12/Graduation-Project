@@ -73,7 +73,7 @@ To publish the image:
 ```bash
 docker login
 docker-compose build
-docker push mnagy156/flask-app:latest
+docker push zhdmra/flask-app:latest
 ```
 
 ## Kubernetes Deployment
