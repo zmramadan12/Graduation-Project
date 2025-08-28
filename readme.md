@@ -295,6 +295,7 @@ kubectl apply -f argocd/argocd-app.yaml
 - **AWS:** Cloud provider for compute, networking, monitoring, and storage services.
 
 ---
-**Maintained by Mohamed Nagy**
+
+
 
 
