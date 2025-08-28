@@ -272,7 +272,7 @@ Implement GitOps practices using **ArgoCD** to automate application deployment d
 Deploy the ArgoCD Application manifest:
 
 ```bash
-kubectl apply -f argocd/app-argocd.yaml
+kubectl apply -f argocd/argocd-app.yaml
 ```
 
 ### Outcome
@@ -296,4 +296,5 @@ kubectl apply -f argocd/app-argocd.yaml
 
 ---
 **Maintained by Mohamed Nagy**
+
 
