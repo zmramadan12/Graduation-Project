@@ -3,8 +3,8 @@ provider "aws" {
 }
 
 module "network" {
-  source             = "./modules/network"
-  vpc_cidr           = var.vpc_cidr
+  source            = "./modules/network"
+  vpc_cidr          = var.vpc_cidr
   public_subnet_cidr = var.public_subnet_cidr
   
 }
@@ -16,4 +16,7 @@ module "server" {
   ami_id        = var.ami_id
   instance_type = var.instance_type
   key_name      = var.key_name
+  vpc_cidr      = var.vpc_cidr
+  public_subnet_cidr = var.public_subnet_cidr
 }
+

@@ -1,7 +1,7 @@
 ---
 - name: Update all packages
   dnf:
-    name: '*'
+    name: "*"
     state: latest
     update_cache: yes
   when: ansible_distribution == "Amazon Linux"
@@ -28,7 +28,7 @@
   get_url:
     url: https://corretto.aws/downloads/latest/amazon-corretto-17-x64-linux-jdk.rpm
     dest: /tmp/amazon-corretto-17.rpm
-    mode: '0644'
+    mode: "0644"
   tags: base-setup
 
 - name: Install Amazon Corretto 17
@@ -37,24 +37,25 @@
     state: present
   tags: base-setup
 
-- name: Check Java path installed by Corretto
+- name: Find actual Java binary path
   command: readlink -f /usr/bin/java
   register: java_path
   changed_when: false
+  failed_when: false
   tags: base-setup
 
-- name: Set Java 17 as default using alternatives
+- name: Set Java 17 as default using alternatives (only if valid path)
   alternatives:
     name: java
     path: "{{ java_path.stdout }}"
-  when: java_path.stdout is defined
+  when: java_path.stdout is defined and java_path.stdout!= ''
   tags: base-setup
 
 - name: Download Docker Compose binary
   get_url:
     url: https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-x86_64
     dest: /usr/local/bin/docker-compose
-    mode: '0755'
+    mode: "0755"
   tags: base-setup
 
 - name: Create symbolic link for docker-compose
@@ -103,7 +104,7 @@
       [Install]
       WantedBy=multi-user.target
     dest: /usr/lib/systemd/system/containerd.service
-    mode: '0644'
+    mode: "0644"
   notify: Reload systemd
   tags: base-setup
 
@@ -122,7 +123,7 @@
         }
       }
     dest: /etc/docker/daemon.json
-    mode: '0644'
+    mode: "0644"
   notify: Restart Docker
   tags: base-setup
 
@@ -151,7 +152,7 @@
     cmd: dnf clean all
   tags: base-setup
 
-- name: Remove unnecessary files to save disk space
+- name: Remove unnecessary DNF cache files
   file:
     path: /var/cache/dnf
     state: absent

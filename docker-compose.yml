@@ -3,13 +3,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: mnagy156/flask-app:latest
+    image: zhdmra/flask-app:latest
     ports:
       - "5000:5000"
     volumes:
-      - ./app:/app  
+      - ./app:/app
     environment:
       - FLASK_ENV=development
       - FLASK_APP=app.py
     command: python app.py
-      
